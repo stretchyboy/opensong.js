@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OpenSong Test</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/opensong.css" />
+  <script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="javascript/opensong.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $.get('DemoSong', function(data) {
+        var lyrics = $(data).find("lyrics").text();
+        $("#lyrics").openSongLyrics(lyrics);
+      });
+      
+    });
+  </script>
+</head>
+<body>
+
+<h1>OpenSong Lyrics Test</h1>
+<div id="lyrics"></div>
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>
