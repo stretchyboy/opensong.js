@@ -38,6 +38,10 @@
             chordArr.push(m[1]);
             chordsLine = m[2];
           }
+          // add an item if it is an empty line
+          if (chordArr.length == 0) {
+            chordArr.push(chordsLine);            
+          }
         
           var lyricsLine = lyricsLines.shift().substr(1);
         
