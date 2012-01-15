@@ -12,11 +12,20 @@
     
       switch(line[0]) {
         case "[":
-          var regexp = /\[(\w)(\d)?\]/g;
-          var m = regexp.exec(line);
-          var header = replaceHeader(m[1]);
-          var number = m[2] ? m[2] : "";
-        
+          var header = line;
+          var number = "";
+          
+          // try to match default style
+          var m = /\[(\w)(\d)?\]/g.exec(line);
+          if (m) {
+            header = replaceHeader(m[1]);
+            number = m[2] ? m[2] : "";
+          } else {
+            // try to match 'custom style'
+            m = /\[(\w*)\]/g.exec(line);
+            header = m ? m[1] : line;
+          }
+          
           $(this).append("<h2>" + header + " " + number + "</h2>");
           break
         case ".":
