@@ -71,7 +71,10 @@
           $(this).append("<table>" + htmlTableRows + "</table>");
           break;
         case " ":
-          $(this).append("<div>" + line + "</div>");
+          $(this).append("<div class='lyrics'>" + line.substr(1) + "</div>");
+          break;
+        case ";":
+          $(this).append("<div class='comments'>" + line.substr(1) + "</div>");
           break;
         default:
           console.log("no support for :" + line);
