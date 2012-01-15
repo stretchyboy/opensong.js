@@ -1,6 +1,10 @@
 (function($)
 {
+  // 
   $.fn.openSongLyrics = function(lyrics) {
+    // clear Html Element
+    $(this).html("");
+  
     var lyricsLines = lyrics.split("\n");
   
     while(lyricsLines.length > 0) {
