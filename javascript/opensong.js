@@ -2,8 +2,8 @@
 {
   // 
   $.fn.openSongLyrics = function(lyrics) {
-    // clear Html Element
-    $(this).html("");
+    // clear Html Element and add opensong class
+    $(domElem).html("").addClass("opensong");
   
     var lyricsLines = lyrics.split("\n");
   

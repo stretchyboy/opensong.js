@@ -1,16 +1,20 @@
-body {
+.opensong {
   font-family:Verdana,sans-serif;
 }
 
-.comments {
+.opensong .comments {
   font-style:italic;
   font-size:0.8em;
 }
 
-tr.chords td {
+.opensong table {
+  border-width: 0px;
+} 
+
+.opensong tr.chords td {
   font-weight:bold;
   font-size:1.0em;
 }
-tr.lyrics td {
-  
+.opensong tr.lyrics td {
+  font-size:1.0em;
 }
