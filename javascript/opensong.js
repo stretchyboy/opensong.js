@@ -44,7 +44,7 @@
           // write html table row for the chords
           var htmlTableRows = "<tr class='chords'><td></td><td>" + chordArr.join("</td><td>") + "</td></tr>\n";
         
-          var textLine = "", m = null, cleanRegExp = /_|\|/g;
+          var textLine = "", m = null, cleanRegExp = /_|\||---|-!!/g;
                     
           // while we have lines that match a textLine create an html table row
           while ((textLine = lyricsLines.shift()) && (m = textLine.match(/^([ 1-9])(.*)/))) {
