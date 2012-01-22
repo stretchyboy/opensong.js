@@ -1,7 +1,15 @@
 (function($)
 {
-  // 
+  // jQuery wrapper around openSongLyrics function
   $.fn.openSongLyrics = function(lyrics) {
+    try {
+      openSongLyrics(this, lyrics);
+    } catch(e) {
+      alert(e);
+    }
+  }
+  // displays Opensong 
+  function openSongLyrics(domElem, lyrics) {
     // clear Html Element and add opensong class
     $(domElem).html("").addClass("opensong");
   
@@ -26,7 +34,7 @@
             header = m ? m[1] : line;
           }
           
-          $(this).append("<h2>" + header + " " + number + "</h2>");
+          $(domElem).append("<h2>" + header + " " + number + "</h2>");
           break
         case ".":
           var chordsLine = line.substr(1);
@@ -72,13 +80,13 @@
           var htmlTableRows = "<tr class='chords'><td>" + chordArr.join("</td><td>") + "</td></tr>\n";
           htmlTableRows = htmlTableRows + "<tr class='lyrics'><td>" + lyricsArr.join("</td><td>") + "</td></tr>\n";
         
-          $(this).append("<table>" + htmlTableRows + "</table>");
+          $(domElem).append("<table>" + htmlTableRows + "</table>");
           break;
         case " ":
-          $(this).append("<div class='lyrics'>" + line.substr(1) + "</div>");
+          $(domElem).append("<div class='lyrics'>" + line.substr(1) + "</div>");
           break;
         case ";":
-          $(this).append("<div class='comments'>" + line.substr(1) + "</div>");
+          $(domElem).append("<div class='comments'>" + line.substr(1) + "</div>");
           break;
         default:
           console.log("no support for :" + line);
