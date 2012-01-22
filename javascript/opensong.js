@@ -20,21 +20,11 @@
     
       switch(line[0]) {
         case "[":
-          var header = line;
-          var number = "";
+          var header = line.match(/\[(.*)\]/)[1]
+          // replace first char (e.g. V -> Verse)
+          header = header.replace(header[0], replaceHeader(header[0]));
           
-          // try to match default style
-          var m = /\[(\w)(\d)?\]/g.exec(line);
-          if (m) {
-            header = replaceHeader(m[1]);
-            number = m[2] ? m[2] : "";
-          } else {
-            // try to match 'custom style'
-            m = /\[(\w*)\]/g.exec(line);
-            header = m ? m[1] : line;
-          }
-          
-          $(domElem).append("<h2>" + header + " " + number + "</h2>");
+          $(domElem).append("<h2>" + header + "</h2>");
           break
         case ".":
           var chordsLine = line.substr(1);
@@ -102,19 +92,17 @@
     function replaceHeader(abbr) {
       switch(abbr) {
         case "C":
-          return "Chorus";
+          return "Chorus ";
         case "V":
-          return "Verse";
+          return "Verse ";
         case "B":
-          return "Bridge";
+          return "Bridge ";
         case "T":
-          return "Tag";
+          return "Tag ";
         case "P":
-          return "Pre-Chorus";
-        case "I":
-          return "Intro";
-        case "O":
-          return "Outro";
+          return "Pre-Chorus ";
+        default:
+          return abbr;
         }
     }
   }
