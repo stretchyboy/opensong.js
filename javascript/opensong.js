@@ -51,34 +51,40 @@
             chordArr.push(chordsLine);            
           }
         
-          var lyricsLine = lyricsLines.shift().substr(1);
+          // write html table row for the chords
+          var htmlTableRows = "<tr class='chords'><td></td><td>" + chordArr.join("</td><td>") + "</td></tr>\n";
         
-          var lyricsArr = new Array();
-          // split lyrics line based on chord length
-          for (var i in chordArr) {
-          
-            if (i < chordArr.length - 1) {
-              var chordLength = chordArr[i].length;          
-              // split String with RegExp (is there a better way?)
-              var m = lyricsLine.match(new RegExp("(.{"+ chordLength +"})(.*)"));
-          
-              if(m === null) {
-                lyricsArr.push("");
+          var textLine = "", m = null;
+                    
+          // while we have lines that match a textLine create an html table row
+          while ((textLine = lyricsLines.shift()) && (m = textLine.match(/^([ 1-9])(.*)/))) {
+            var textArr = new Array();
+            var textLineNr = m[1];
+            textLine = m[2];
+            
+            // split lyrics line based on chord length
+            for (var i in chordArr) {
+              if (i < chordArr.length - 1) {
+                var chordLength = chordArr[i].length;          
+                // split String with RegExp (is there a better way?)
+                var m = textLine.match(new RegExp("(.{"+ chordLength +"})(.*)"));
+
+                if(m === null) {
+                  textArr.push("");
+                } else {
+                  textArr.push(m[1]);
+                  textLine = m[2];
+                }
               } else {
-                lyricsArr.push(m[1]);
-                lyricsLine = m[2];
+                // add the whole string if at the end of the chord arr
+                textArr.push(textLine);
               }
-            } else {
-              // add the whole string if at the end of the chord arr
-              lyricsArr.push(lyricsLine);
             }
+            // write html table row for the text (lyrics)
+            htmlTableRows = htmlTableRows + "<tr class='lyrics'><td>" + textLineNr + "</td><td>" + textArr.join("</td><td>") + "</td></tr>\n";
           }
-        
-          //console.log(chordArr);        
-          //console.log(lyricsArr);
-        
-          var htmlTableRows = "<tr class='chords'><td>" + chordArr.join("</td><td>") + "</td></tr>\n";
-          htmlTableRows = htmlTableRows + "<tr class='lyrics'><td>" + lyricsArr.join("</td><td>") + "</td></tr>\n";
+          // attach the line again in front (we cut it off in the while loop)
+          if(textLine !== undefined) lyricsLines.unshift(textLine);
         
           $(domElem).append("<table>" + htmlTableRows + "</table>");
           break;
