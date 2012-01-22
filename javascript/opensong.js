@@ -54,7 +54,7 @@
           // write html table row for the chords
           var htmlTableRows = "<tr class='chords'><td></td><td>" + chordArr.join("</td><td>") + "</td></tr>\n";
         
-          var textLine = "", m = null;
+          var textLine = "", m = null, cleanRegExp = /_|\|/g;
                     
           // while we have lines that match a textLine create an html table row
           while ((textLine = lyricsLines.shift()) && (m = textLine.match(/^([ 1-9])(.*)/))) {
@@ -72,12 +72,12 @@
                 if(m === null) {
                   textArr.push("");
                 } else {
-                  textArr.push(m[1]);
+                  textArr.push(m[1].replace(cleanRegExp, ""));
                   textLine = m[2];
                 }
               } else {
                 // add the whole string if at the end of the chord arr
-                textArr.push(textLine);
+                textArr.push(textLine.replace(cleanRegExp, ""));
               }
             }
             // write html table row for the text (lyrics)
