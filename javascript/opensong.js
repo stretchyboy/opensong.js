@@ -57,14 +57,10 @@
               if (i < chordArr.length - 1) {
                 var chordLength = chordArr[i].length;          
                 // split String with RegExp (is there a better way?)
-                var m = textLine.match(new RegExp("(.{"+ chordLength +"})(.*)"));
+                var m = textLine.match(new RegExp("(.{0,"+ chordLength +"})(.*)"));
 
-                if(m === null) {
-                  textArr.push("");
-                } else {
-                  textArr.push(m[1].replace(cleanRegExp, ""));
-                  textLine = m[2];
-                }
+                textArr.push(m[1].replace(cleanRegExp, ""));
+                textLine = m[2];
               } else {
                 // add the whole string if at the end of the chord arr
                 textArr.push(textLine.replace(cleanRegExp, ""));
